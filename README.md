@@ -49,7 +49,7 @@ cd system-info-tool
 
 #### Opção 3: Download Direto
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isaaclacerda/system-info-tool/main/Get-SystemInfo.ps1" -OutFile "Get-SystemInfo.ps1"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isaacoolibama/system-info-tool/main/Get-SystemInfo.ps1" -OutFile "Get-SystemInfo.ps1"
 ```
 
 ### Execução
