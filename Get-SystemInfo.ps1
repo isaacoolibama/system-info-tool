@@ -222,4 +222,5 @@ foreach ($d in $DISKS) {
 
 # Pausa para manter a janela aberta e permitir leitura dos resultados
 Write-Host "`nPressione qualquer tecla para sair..." -ForegroundColor Yellow
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") 
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+exit 
