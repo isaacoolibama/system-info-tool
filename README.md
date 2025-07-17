@@ -35,11 +35,18 @@ Script PowerShell avançado que coleta e exibe informações detalhadas sobre ha
 - PowerShell 5.1+
 - Permissões de administrador (recomendado)
 
+### Configuração da Política de Execução
+Para executar scripts PowerShell, pode ser necessário configurar a política de execução:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 ### Instalação
 
-#### Opção 1: Download e Duplo Clique (Mais Fácil)
+#### Opção 1: Download e Execução Local
 1. Baixe o arquivo `Get-SystemInfo.ps1`
-2. Duplo clique no arquivo para executar
+2. Abra o PowerShell como administrador
+3. Execute: `.\Get-SystemInfo.ps1`
 
 #### Opção 2: Download ZIP
 1. Clique em "Code" → "Download ZIP"
@@ -52,12 +59,14 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isaacoolibama/system-i
 
 ### Execução
 
-#### Método 1: Duplo Clique (Recomendado)
-- Simplesmente duplo clique no arquivo `Get-SystemInfo.ps1`
-
-#### Método 2: Via PowerShell
+#### Método 1: Via PowerShell (Recomendado)
 ```powershell
 .\Get-SystemInfo.ps1
+```
+
+#### Método 2: Com Política de Execução
+```powershell
+powershell -ExecutionPolicy Bypass -File "Get-SystemInfo.ps1"
 ```
 
 #### Método 3: Execução Remota (Sem Download)
@@ -90,6 +99,8 @@ Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isa
 ## 🎨 Exemplo de Saída
 
 ![Screenshot do Terminal](assets/informacoes.png)
+
+*Saída colorida e organizada com todas as informações do sistema*
 
 ## 📝 Licença
 

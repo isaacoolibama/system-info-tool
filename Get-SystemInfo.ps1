@@ -23,21 +23,12 @@
     LinkedIn: https://www.linkedin.com/in/isaaclacerda/
     
 .LINK
-    https://github.com/isaaclacerda/system-info-tool
+    https://github.com/isaacoolibama/system-info-tool
 #>
 
 # =============================================================================
 # CONFIGURAÇÕES INICIAIS E FUNÇÕES AUXILIARES
 # =============================================================================
-
-# Configuração para execução automática
-if ($Host.Name -eq "ConsoleHost") {
-    # Se executado via duplo clique, abre uma nova janela do PowerShell
-    if ($PSVersionTable.PSVersion.Major -ge 5) {
-        Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$PSCommandPath`"" -NoNewWindow
-        exit
-    }
-}
 
 # Configuração de codificação para suporte a caracteres especiais
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
