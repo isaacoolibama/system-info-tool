@@ -37,15 +37,13 @@ Script PowerShell avançado que coleta e exibe informações detalhadas sobre ha
 
 ### Instalação
 
-#### Opção 1: Git Clone
-```bash
-git clone https://github.com/isaaclacerda/system-info-tool.git
-cd system-info-tool
-```
+#### Opção 1: Download e Duplo Clique (Mais Fácil)
+1. Baixe o arquivo `Get-SystemInfo.ps1`
+2. Duplo clique no arquivo para executar
 
 #### Opção 2: Download ZIP
 1. Clique em "Code" → "Download ZIP"
-2. Extraia e navegue até a pasta
+2. Extraia e duplo clique no `Get-SystemInfo.ps1`
 
 #### Opção 3: Download Direto
 ```powershell
@@ -54,12 +52,17 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isaacoolibama/system-i
 
 ### Execução
 
-```powershell
-# Configure o PowerShell (uma vez)
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+#### Método 1: Duplo Clique (Recomendado)
+- Simplesmente duplo clique no arquivo `Get-SystemInfo.ps1`
 
-# Execute o script
+#### Método 2: Via PowerShell
+```powershell
 .\Get-SystemInfo.ps1
+```
+
+#### Método 3: Execução Remota (Sem Download)
+```powershell
+Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isaacoolibama/system-info-tool/main/Get-SystemInfo.ps1" -UseBasicParsing).Content
 ```
 
 ## 📊 Informações Coletadas
