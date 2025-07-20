@@ -1,0 +1,49 @@
+# Arquivos temporários do PowerShell
+*.tmp
+*.temp
+*.log
+
+# Arquivos de backup
+*.bak
+*.backup
+*.old
+
+# Arquivos de configuração local
+*.local
+config.local.ps1
+
+# Arquivos de saída
+output/
+results/
+*.txt
+*.csv
+*.json
+
+# Arquivos do Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Arquivos do Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Arquivos do PowerShell ISE
+*.ps1.ps1
+
+# Arquivos de módulos PowerShell
+*.psm1
+*.psd1
+
+# Arquivos de documentação temporários
+*.md~
+*.md.bak
+
+# Arquivos de teste
+test/
+tests/
+*.test.ps1
+
+# Arquivos de ambiente
+.env
+.env.local 
