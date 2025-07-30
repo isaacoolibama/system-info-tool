@@ -20,13 +20,20 @@ Script PowerShell avançado que coleta e exibe informações detalhadas sobre ha
 - **⚡ Execução Rápida**: Resultados em segundos
 - **🔧 Zero Dependências**: Funciona apenas com PowerShell nativo
 - **🛡️ Seguro**: Não coleta dados pessoais ou sensíveis
-
+- **📄 Exportação CSV**: Gera relatórios em formato CSV para análise posterior
+- **📁 Organizado**: Arquivos CSV salvos automaticamente na área de trabalho
+- **🔤 Padronização**: Todos os dados em maiúsculo para consistência
+- **🌐 Rede Detalhada**: Informações completas de interfaces de rede
+- **🗄️ Compatível com BD**: Formato ideal para inserção em bancos de dados
 
 ## 🛠️ Tecnologias
 
 - **PowerShell 5.1+** - Linguagem de script e automação
 - **WMI/CIM** - Windows Management Instrumentation para coleta de dados
 - **Windows 10/11** - Sistema operacional suportado
+- **CSV Generation** - Geração manual para controle total de codificação
+- **Database Integration** - Formato otimizado para bancos de dados
+- **Character Encoding** - Suporte a múltiplas codificações
 
 ## 🚀 Como Usar
 
@@ -89,12 +96,32 @@ Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isa
 - **BIOS**: Versão e data de lançamento
 
 ### 🌐 Rede
-- **Adaptador**: Nome e tipo de conexão (WiFi/Ethernet)
-- **Configuração IP**: Endereço IPv4, máscara, gateway
+- **Adaptadores**: Todas as interfaces de rede ativas
+- **Tipos de Conexão**: WiFi, Ethernet, Virtual, Bluetooth
+- **Endereços MAC**: Formatados com separadores
+- **Configuração IP**: IPv4, IPv6, máscara, gateway
 - **DNS**: Servidores DNS configurados
+- **Status**: Ativo/Inativo de cada interface
 
 ### 💾 Armazenamento
 - **Discos**: Modelo, capacidade, tipo de interface
+
+## 📄 Exportação CSV
+
+Após exibir as informações do sistema, o script oferece a opção de gerar um arquivo CSV com todos os dados coletados:
+
+### 📁 Localização do Arquivo
+- **Pasta**: Área de trabalho do usuário
+- **Nome**: `SystemInfo_YYYYMMDD_HHMMSS.csv`
+- **Formato**: ANSI com separadores de vírgula
+- **Codificação**: Otimizada para máxima compatibilidade com Excel e outros editores
+
+### 📊 Estrutura do CSV
+O arquivo CSV contém as seguintes colunas:
+- **CATEGORIA**: Tipo de informação (SISTEMA OPERACIONAL, HARDWARE, REDE, etc.)
+- **CAMPO**: Nome específico do campo (todos em maiúsculo)
+- **VALOR**: Dados coletados do sistema (padronizados em maiúsculo)
+
 
 ## 🎨 Exemplo de Saída
 
@@ -106,7 +133,7 @@ Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isa
 
 MIT License - veja [LICENSE](LICENSE) para detalhes.
 
----
+
 
 <div align="center">
 
