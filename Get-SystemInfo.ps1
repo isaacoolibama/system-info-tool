@@ -106,6 +106,16 @@ function Export-SystemInfoToCSV {
         # Informacoes do Sistema Operacional
         $csvData += [PSCustomObject]@{
             Categoria = "SISTEMA OPERACIONAL"
+            Campo = "HOSTNAME"
+            Valor = Clean-SpecialCharacters $SystemData.HOSTNAME
+        }
+        $csvData += [PSCustomObject]@{
+            Categoria = "SISTEMA OPERACIONAL"
+            Campo = "USUARIO"
+            Valor = Clean-SpecialCharacters $env:USERNAME
+        }
+        $csvData += [PSCustomObject]@{
+            Categoria = "SISTEMA OPERACIONAL"
             Campo = "NOME"
             Valor = Clean-SpecialCharacters $SystemData.SO
         }
@@ -240,16 +250,6 @@ function Export-SystemInfoToCSV {
             Campo = "DATA DE COLETA"
             Valor = (Get-Date -Format "dd/MM/yyyy HH:mm:ss").ToUpper()
         }
-        $csvData += [PSCustomObject]@{
-            Categoria = "INFORMACOES ADICIONAIS"
-            Campo = "USUARIO"
-            Valor = Clean-SpecialCharacters $env:USERNAME
-        }
-        $csvData += [PSCustomObject]@{
-            Categoria = "INFORMACOES ADICIONAIS"
-            Campo = "COMPUTADOR"
-            Valor = Clean-SpecialCharacters $env:COMPUTERNAME
-        }
         
         # Gera CSV manualmente para melhor controle de codificacao
         $csvContent = "CATEGORIA,CAMPO,VALOR`n"
@@ -278,6 +278,13 @@ function Export-SystemInfoToCSV {
 # SEQUENCIA DE LOADING VISUAL
 # =============================================================================
 
+# Cabeçalho fixo no loading
+Write-Host "`n" -NoNewline
+Write-Host "==================================================" -ForegroundColor Cyan
+Write-Host "           SYSTEM INFORMATION TOOL              " -ForegroundColor Cyan
+Write-Host "==================================================" -ForegroundColor Cyan
+Write-Host "`n" -NoNewline
+
 $loadingSteps = @(
     "Carregando informacoes do sistema..."
     "Carregando hardware..."
@@ -294,6 +301,16 @@ $Host.UI.RawUI.CursorPosition = New-Object System.Management.Automation.Host.Coo
 [Console]::Clear()
 
 # =============================================================================
+# CABECALHO DO SCRIPT
+# =============================================================================
+
+Write-Host "`n" -NoNewline
+Write-Host "==================================================" -ForegroundColor Cyan
+Write-Host "           SYSTEM INFORMATION TOOL              " -ForegroundColor Cyan
+Write-Host "==================================================" -ForegroundColor Cyan
+Write-Host "`n" -NoNewline
+
+# =============================================================================
 # COLETA DE DADOS DO SISTEMA OPERACIONAL
 # =============================================================================
 
@@ -302,6 +319,7 @@ $o          = Get-CimInstance Win32_OperatingSystem -ErrorAction SilentlyContinu
 $SO         = $o.Caption
 $VERS       = "v$($o.Version) Build $($o.BuildNumber)"
 $ARCH       = $o.OSArchitecture
+$HOSTNAME   = $env:COMPUTERNAME
 
 # =============================================================================
 # COLETA DE DADOS DO PROCESSADOR
@@ -454,7 +472,9 @@ $DISKS      = Get-CimInstance Win32_DiskDrive -ErrorAction SilentlyContinue |
 # =============================================================================
 
 Write-Header "Resumo do Sistema"
-Write-Field "Sistema Operacional" $SO
+Write-Field "Hostname"           $HOSTNAME
+Write-Field "Usuario"            $env:USERNAME
+Write-Field "Sistema"            $SO
 Write-Field "Versao"             $VERS
 Write-Field "Arquitetura"        $ARCH
 
@@ -490,24 +510,25 @@ Write-Host "              OPCOES ADICIONAIS              " -ForegroundColor Mage
 Write-Host "==============================================" -ForegroundColor Magenta
 
 do {
-    Write-Host "`n1 - Gerar arquivo CSV com todas as informacoes"
-    Write-Host "2 - Sair"
-    Write-Host "`nEscolha uma opcao (1 ou 2): " -NoNewline -ForegroundColor Yellow
-    
-    $choice = Read-Host
-    
-    if ($choice -eq "1") {
-        break
-    } elseif ($choice -eq "2") {
-        break
-    } else {
-        Write-Host "`nOpcao invalida! Digite 1 ou 2." -ForegroundColor Red
-        Start-Sleep -Seconds 1
-        Clear-Host
-        Write-Host "==============================================" -ForegroundColor Magenta
-        Write-Host "              OPCOES ADICIONAIS              " -ForegroundColor Magenta
-        Write-Host "==============================================" -ForegroundColor Magenta
-    }
+    Write-Host "`n1 - Gerar arquivo CSV com todas as informacoes" -ForegroundColor Gray
+Write-Host "2 - Sair" -ForegroundColor Gray
+
+Write-Host "`nEscolha uma opcao (1 ou 2): " -NoNewline -ForegroundColor Yellow
+
+$choice = Read-Host
+
+if ($choice -eq "1") {
+    break
+} elseif ($choice -eq "2") {
+    break
+} else {
+    Write-Host "`nOpcao invalida! Digite 1 ou 2." -ForegroundColor Red
+    Start-Sleep -Seconds 1
+    Clear-Host
+    Write-Host "==============================================" -ForegroundColor Magenta
+    Write-Host "              OPCOES ADICIONAIS              " -ForegroundColor Magenta
+    Write-Host "==============================================" -ForegroundColor Magenta
+}
 } while ($true)
 
 if ($choice -eq "1") {
@@ -516,6 +537,7 @@ if ($choice -eq "1") {
         SO = $SO
         VERS = $VERS
         ARCH = $ARCH
+        HOSTNAME = $HOSTNAME
         CPU = $CPU
         RAM = $RAM
         Channel = $Channel
@@ -534,20 +556,44 @@ if ($choice -eq "1") {
     $csvResult = Export-SystemInfoToCSV -SystemData $systemData
     
     if ($csvResult) {
-        Write-Host "`n" -NoNewline
-        Write-Host "===============================================" -ForegroundColor Green
-        Write-Host "        ARQUIVO GERADO COM SUCESSO!        " -ForegroundColor Green
-        Write-Host "===============================================" -ForegroundColor Green
+        # Limpa o terminal
+        Clear-Host
+        $Host.UI.RawUI.CursorPosition = New-Object System.Management.Automation.Host.Coordinates 0, 0
+        [Console]::Clear()
         
-        Write-Host "`nLocalizacao: $($csvResult.Path)" -ForegroundColor Cyan
-        Write-Host "Voce pode abrir o arquivo no Excel ou em qualquer editor de planilhas." -ForegroundColor Yellow
-        Write-Host "Total de informacoes coletadas: $($csvResult.RecordCount) registros" -ForegroundColor Magenta
-        
+        # Cabeçalho fixo
         Write-Host "`n" -NoNewline
+        Write-Host "==================================================" -ForegroundColor Cyan
+        Write-Host "           SYSTEM INFORMATION TOOL              " -ForegroundColor Cyan
+        Write-Host "==================================================" -ForegroundColor Cyan
+        Write-Host "`n" -NoNewline
+        
+        # Bloco consolidado de sucesso com bordas ASCII
+        Write-Host "+--------------------------------------------------+" -ForegroundColor Green
+        Write-Host "|        ARQUIVO GERADO COM SUCESSO               |" -ForegroundColor Green
+        Write-Host "+--------------------------------------------------+" -ForegroundColor Green
+        
+        # Extrai apenas o nome do arquivo para exibição mais limpa
+        $fileName = Split-Path $csvResult.Path -Leaf
+        $filePath = Split-Path $csvResult.Path -Parent
+        
+        Write-Host "| Localizacao: $filePath" -ForegroundColor Cyan
+        Write-Host "|              $fileName" -ForegroundColor Cyan
+        Write-Host "| Total de registros coletados: $($csvResult.RecordCount)" -ForegroundColor Cyan
+        Write-Host "+--------------------------------------------------+" -ForegroundColor Green
+        Write-Host "`n" -NoNewline
+        Write-Host "`nObrigado por utilizar o System Information Tool!!" -ForegroundColor Cyan
+        
+        # Adiciona informações de desenvolvimento no final da tela de exportação
+     
         Write-Host "==================================================" -ForegroundColor Gray
-        Write-Host "`nObrigado por usar o System Information Tool!" -ForegroundColor Cyan
-        Write-Host "GitHub: https://github.com/isaacoolibama/system-info-tool" -ForegroundColor Yellow
-        Write-Host "`nPressione qualquer tecla para sair..." -ForegroundColor Gray
+        Write-Host "Desenvolvido por: Isaac Oolibama R. Lacerda" -ForegroundColor Gray
+        Write-Host "GitHub: https://github.com/isaacoolibama/system-info-tool" -ForegroundColor Gray
+        Write-Host "LinkedIn: https://www.linkedin.com/in/isaaclacerda/" -ForegroundColor Gray
+        Write-Host "==================================================" -ForegroundColor Gray
+        Write-Host "`n" -NoNewline
+        Write-Host "Pressione qualquer tecla para sair..." -ForegroundColor Gray
+
         $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
         [Environment]::Exit(0)
     }
