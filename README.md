@@ -85,7 +85,7 @@ Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isa
 
 **Para Linux (Terminal Bash):**
 ```bash
-curl -sL https://raw.githubusercontent.com/isaacoolibama/system-info-tool/main/system-info.sh | bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/isaacoolibama/system-info-tool/main/system-info.sh)"
 ```
 
 ## 📊 Informações Coletadas
