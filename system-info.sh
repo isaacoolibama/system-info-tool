@@ -103,7 +103,7 @@ escolher_caminho_csv() {
     echo "1) Pasta Home" >&2
     echo "2) Pasta Downloads" >&2
     echo "3) Escolher local (abre seletor ou digite caminho completo)" >&2
-    read -rp "Opcao [1/2/3]: " escolha
+    read -rp "Opcao [1/2/3]: " escolha < /dev/tty
 
     case "$escolha" in
         1)
@@ -123,7 +123,7 @@ escolher_caminho_csv() {
                 kdialog --getsavefilename "$HOME/$nome_padrao"
             else
                 echo "Selecione digitando o caminho completo (ex: /caminho/para/$nome_padrao)" >&2
-                read -rp "Caminho: " caminho_manual
+                read -rp "Caminho: " caminho_manual < /dev/tty
                 printf "%s\n" "$caminho_manual"
             fi
             ;;
@@ -174,7 +174,7 @@ echo -e "${YELLOW}==============================================${RESET}"
 echo -e "              ${PURPLE}OPCOES ADICIONAIS${RESET}"
 echo -e "${YELLOW}==============================================${RESET}\n"
 
-read -rp "Deseja gerar CSV com todas as informações? (s/n): " OPC
+read -rp "Deseja gerar CSV com todas as informações? (s/n): " OPC < /dev/tty
 if [[ "$OPC" =~ ^[Ss]$ ]]; then
     CSV_FILE="system_info_$(date +%Y%m%d_%H%M%S).csv"
     CSV_PATH=$(escolher_caminho_csv "$CSV_FILE")
