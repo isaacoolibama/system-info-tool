@@ -77,8 +77,15 @@ powershell -ExecutionPolicy Bypass -File "Get-SystemInfo.ps1"
 ```
 
 #### Método 3: Execução Remota (Sem Download)
+
+**Para Windows (PowerShell):**
 ```powershell
 Invoke-Expression (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/isaacoolibama/system-info-tool/main/Get-SystemInfo.ps1" -UseBasicParsing).Content
+```
+
+**Para Linux (Terminal Bash):**
+```bash
+curl -sL https://raw.githubusercontent.com/isaacoolibama/system-info-tool/main/system-info.sh | bash
 ```
 
 ## 📊 Informações Coletadas
